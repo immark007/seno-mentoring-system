@@ -16,8 +16,8 @@ import java.util.List;
 public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         List<ErroField> listError = fieldErrors.stream().map(e -> new ErroField(e.getField(), e.getDefaultMessage())).toList();
 
 
@@ -28,13 +28,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        return ErrorResponse.conflict(ex.getMessage());
+    public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
+        return ErrorResponse.conflict(exception.getMessage());
     }
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleErrosNaoTratados(RuntimeException e){
+    public ErrorResponse handleErrosNaoTratados(RuntimeException exception){
         return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu, um erro inesperado, entre em contato com a adminstração do sistema",List.of());
     }
 }
