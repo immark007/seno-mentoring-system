@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16.6
+    container_name: senoMentoriaDB
+    ports:
+      - "5440:5432"
+    env_file:
+      - .env
+    networks:
+      - library-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: container-pgadmin
+    ports:
+      - "15432:80"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    networks:
+      - library-network
+
+networks:
+  library-network:
+    driver: bridge
