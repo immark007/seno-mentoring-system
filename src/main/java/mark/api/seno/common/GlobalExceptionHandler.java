@@ -21,8 +21,7 @@ public class GlobalExceptionHandler {
         List<ErroField> listError = fieldErrors.stream().map(e -> new ErroField(e.getField(), e.getDefaultMessage())).toList();
 
 
-        return new ErrorResponse(
-                HttpStatus.UNPROCESSABLE_ENTITY.value(), "Error of validation", listError
+        return new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.name(),HttpStatus.UNPROCESSABLE_ENTITY.value(), "Error of validation", listError
         );
     }
 
@@ -35,6 +34,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleErrosNaoTratados(RuntimeException exception){
-        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu, um erro inesperado, entre em contato com a adminstração do sistema",List.of());
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.name(),HttpStatus.INTERNAL_SERVER_ERROR.value(), "Ocorreu, um erro inesperado, entre em contato com a adminstração do sistema",List.of());
     }
 }

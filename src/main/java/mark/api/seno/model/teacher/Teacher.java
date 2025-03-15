@@ -1,4 +1,4 @@
-package mark.api.seno.model.student;
+package mark.api.seno.model.teacher;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,12 +10,12 @@ import mark.api.seno.model.user.User;
 import java.util.UUID;
 
 @Entity
-@Table(name = "students")
+@Table(name = "teachers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column
@@ -25,11 +25,9 @@ public class Student {
     private String name;
 
     @Column
-    private int grade;
-
+    private String subject;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
-
 
 }
